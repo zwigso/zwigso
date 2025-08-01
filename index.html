@@ -399,7 +399,7 @@
                 </div>
                 <div class="tab-content">
                   <h5>Support</h5>
-                  <span>24/7 assistance</span>
+                  <span>Instant assistance</span>
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -702,7 +702,7 @@
               </div>
               <h2 class="section-heading mb-4">Smart insights, real savings</h2>
               <p class="section-description mb-4">A trusted firewall that empowers restaurants to negotiate smarter with delivery platforms and cut down burn efficiently.</p>
-              <a href="#" class="cta-button" data-aos="fade-right" data-aos-delay="200">
+              <a class="cta-button" data-aos="fade-right" data-aos-delay="200">
                 Explore Our Solutions
               </a>
             </div>
@@ -1298,10 +1298,10 @@
               </div><!-- End FAQ Item-->
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
-                <h3>Vestibulum ac diam sit amet quam vehicula elementum?</h3>
+                <h3>Why should I trust Zwigso?</h3>
                 <div class="faq-content">
                   <p>
-                    Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                    We are the first to specialize in restaurant specific burn optimization. Our expert team, proven methods, and transparent results build trust every step of the way.
                   </p>
                 </div>
                 <i class="bi bi-plus faq-toggle"></i>
@@ -1555,7 +1555,7 @@
                     <i class="bi bi-telephone-fill"></i>
                   </div>
                   <div class="info-content">
-                    <h5>Call Direct</h5>
+                    <h5>Call Us</h5>
                     <p>+91 88930 88894</p>
                   </div>
                 </div>
@@ -1566,7 +1566,7 @@
                   </div>
                   <div class="info-content">
                     <h5>Business Hours</h5>
-                    <p>Mon-Sat: 8AM - 7PM</p>
+                    <p>Mon-Sat: 10AM - 7PM</p>
                   </div>
                 </div>
               </div>
@@ -1590,7 +1590,8 @@
                 <p>We’d love to hear from you. Drop your questions, ideas, or feedback below.</p>
               </div>
 
-              <form action="forms/contact.php" method="post" class="php-email-form">
+              <!-- <form action="forms/contact.php" method="post" class="php-email-form"> -->
+              <form action="https://formspree.io/f/movllgog" method="post" class="php-email-form">
                 <div class="mb-3">
                   <label for="contactName" class="form-label">Full Name</label>
                   <input type="text" name="name" class="form-control" id="contactName" placeholder="Enter your full name" required="">
@@ -1744,6 +1745,48 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    const form = document.querySelector('.php-email-form');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      const loading = document.querySelector('.loading');
+      const errorMsg = document.querySelector('.error-message');
+      const sentMsg = document.querySelector('.sent-message');
+
+      loading.style.display = 'block';
+      errorMsg.style.display = 'none';
+      sentMsg.style.display = 'none';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        loading.style.display = 'none';
+        if (response.ok) {
+          sentMsg.style.display = 'block';
+          form.reset();
+        } else {
+          return response.json().then(data => {
+            throw new Error(data.error || 'Form submission failed');
+          });
+        }
+      })
+      .catch(error => {
+        errorMsg.innerText = error.message;
+        errorMsg.style.display = 'block';
+      });
+    });
+  </script>
+
 
 </body>
 
