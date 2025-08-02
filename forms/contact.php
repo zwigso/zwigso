@@ -1,42 +1,64 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name    = htmlspecialchars($_POST["name"]);
+    $email   = htmlspecialchars($_POST["email"]);
+    $phone   = htmlspecialchars($_POST["phone"]);
+    $subject = htmlspecialchars($_POST["subject"]);
+    $message = htmlspecialchars($_POST["message"]);
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'zwigso@gmail.com';
+    $to = "your-email@example.com";  // 📨 Replace this with your actual email
+    $email_subject = "New Contact Form Message from Zwigso: $subject";
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+    $body = "You received a new message:\n\n"
+          . "Name: $name\n"
+          . "Email: $email\n"
+          . "Phone: $phone\n"
+          . "Subject: $subject\n"
+          . "Message:\n$message\n";
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+    $headers = "From: noreply@yourdomain.com\r\n";
+    $headers .= "Reply-To: $email\r\n";
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+    if (mail($to, $email_subject, $body, $headers)) {
+        echo json_encode(["success" => true]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Message could not be sent."]);
+    }
+} else {
+    http_response_code(403);
+    echo json_encode(["error" => "Invalid request"]);
+}
+?>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name    = htmlspecialchars($_POST["name"]);
+    $email   = htmlspecialchars($_POST["email"]);
+    $phone   = htmlspecialchars($_POST["phone"]);
+    $subject = htmlspecialchars($_POST["subject"]);
+    $message = htmlspecialchars($_POST["message"]);
 
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  isset($_POST['phone']) && $contact->add_message($_POST['phone'], 'Phone');
-  $contact->add_message( $_POST['message'], 'Message', 10);
+    $to = "your-email@example.com";  // 📨 Replace this with your actual email
+    $email_subject = "New Contact Form Message from Zwigso: $subject";
 
-  echo $contact->send();
+    $body = "You received a new message:\n\n"
+          . "Name: $name\n"
+          . "Email: $email\n"
+          . "Phone: $phone\n"
+          . "Subject: $subject\n"
+          . "Message:\n$message\n";
+
+    $headers = "From: noreply@yourdomain.com\r\n";
+    $headers .= "Reply-To: $email\r\n";
+
+    if (mail($to, $email_subject, $body, $headers)) {
+        echo json_encode(["success" => true]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Message could not be sent."]);
+    }
+} else {
+    http_response_code(403);
+    echo json_encode(["error" => "Invalid request"]);
+}
 ?>

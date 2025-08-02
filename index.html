@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Zwigso</title>
+  <title>zwigso</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/about/zwigso-fav-icon.png" rel="icon">
+  <link href="assets/img/about/favicon.ico" rel="icon">
   <link href="assets/img/about/zwigso-fav-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -96,12 +96,15 @@
 
           <div class="hero-main-content text-center">
             <h1 class="hero-title" data-aos="zoom-in" data-aos-delay="200">
-              The ultimate growth expert for your restaurant<br>
+              The ultimate "Growth" expert for your restaurant<br>
               <span class="typed" data-typed-items="Burn less, Serve More, Grow Faster"></span>
             </h1>
 
             <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
-              We specialize in burn optimization for restaurants navigating online delivery platforms. Our expert backed solutions uncover hidden charges, monitor performance, and reduce unnecessary spend.
+              Are you a restaurant owner unknowingly losing money through hidden expenses on online delivery platforms, like excessive ad charges, unauthorized promo codes, or unclear cost sharing?<br><br>
+              <b style="color: #14a4e6;font-size: 22px;">With zwigso by your side, no one can take advantage of you.</b><br><br>
+              We’re a team of seasoned experts with deep industry insights.<br> We know the tactics because we’ve been on the inside.<br>
+              We act as your advocate in the world of online food delivery platforms, protecting your profits, simplifying your operations, and ensuring nothing goes unnoticed.
             </p>
 
             <!-- <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
@@ -1281,7 +1284,7 @@
                 <h3>Will zwigso disrupt my current operations?</h3>
                 <div class="faq-content">
                   <p>
-                    zwigso runs seamlessly alongside your existing delivery workflows. It’s a plug and monitor solution, there’s no interference with your day to day operations, no downtime, and no need to change how you already work. You’ll simply gain better visibility, control, and insights without any disruptions.
+                    No. zwigso runs seamlessly alongside your existing delivery workflows. It’s a plug and monitor solution, there’s no interference with your day to day operations, no downtime, and no need to change how you already work. You’ll simply gain better visibility, control, and insights without any disruptions.
                   </p>
                 </div>
                 <i class="bi bi-plus faq-toggle"></i>
@@ -1590,8 +1593,8 @@
                 <p>We’d love to hear from you. Drop your questions, ideas, or feedback below.</p>
               </div>
 
-              <!-- <form action="forms/contact.php" method="post" class="php-email-form"> -->
-              <form action="https://formspree.io/f/movllgog" method="post" class="php-email-form">
+              <form action="forms/contact.php" method="post" class="php-email-form">
+              <!-- <form action="https://formspree.io/f/movllgog" method="post" class="php-email-form"> -->
                 <div class="mb-3">
                   <label for="contactName" class="form-label">Full Name</label>
                   <input type="text" name="name" class="form-control" id="contactName" placeholder="Enter your full name" required="">
@@ -1746,7 +1749,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script>
+  <!-- <script>
     const form = document.querySelector('.php-email-form');
 
     form.addEventListener('submit', function (e) {
@@ -1785,8 +1788,29 @@
         errorMsg.style.display = 'block';
       });
     });
-  </script>
+  </script> -->
 
+  <script>
+    fetch('contact.php', {
+    method: 'POST',
+    body: formData
+    })
+    .then(async response => {
+      const data = await response.json();
+      if (data.success) {
+        sentMsg.style.display = 'block';
+        form.reset();
+      } else {
+        errorMsg.innerText = data.error || 'Submission failed';
+        errorMsg.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      errorMsg.innerText = 'Network error. Please try again.';
+      errorMsg.style.display = 'block';
+    });
+
+  </script>
 
 </body>
 
