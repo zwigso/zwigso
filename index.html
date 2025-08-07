@@ -390,7 +390,7 @@
                 </div>
                 <div class="tab-content">
                   <h5>Performance</h5>
-                  <span>Lightning fast speed</span>
+                  <span>Fast replies</span>
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -1539,7 +1539,7 @@
                   </div>
                   <div class="info-content">
                     <h5>Our Office</h5>
-                    <p>SuiteNo.718, 2nd floor, KC Arcade, CSEZ P.O, Near Infopark Kakkanad, Kochi</p>
+                    <p>Suite No.718, 2nd floor, KC Arcade, CSEZ P.O, Near Infopark Kakkanad, Kochi</p>
                   </div>
                 </div>
 
@@ -1549,7 +1549,7 @@
                   </div>
                   <div class="info-content">
                     <h5>Send Email</h5>
-                    <p>zwigso@gmail.com</p>
+                    <p>support@zwigso.com</p>
                   </div>
                 </div>
 
@@ -1559,7 +1559,7 @@
                   </div>
                   <div class="info-content">
                     <h5>Call Us</h5>
-                    <p>+91 88930 88894</p>
+                    <p>+91 89214 88894</p>
                   </div>
                 </div>
 
@@ -1579,7 +1579,7 @@
                 <div class="social-icons">
                   <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
                   <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                  <a href="https://www.linkedin.com/company/zwigso/" class="social-icon"><i class="bi bi-linkedin"></i></a>
                   <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
                 </div>
               </div>
@@ -1650,11 +1650,11 @@
                <img src="assets/img/about/zwigso-logo.png" alt="Zwigso Logo" style="max-height: 59px;margin-left: -13px;margin-bottom: 0px;">
             </a>
             <div class="footer-contact pt-3">
-              <p>SuiteNo.718, 2nd floor</p>
+              <p>Suite No.718, 2nd floor</p>
               <p>KC Arcade, CSEZ P.O</p>
               <p>Near Infopark Kakkanad, Kochi-682037</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+91 88930 88894</span></p>
-              <p><strong>Email:</strong> <span>zwigso@gmail.com</span></p>
+              <p class="mt-3"><strong>Phone:</strong> <span>+91 89214 88894</span></p>
+              <p><strong>Email:</strong> <span>support@zwigso.com</span></p>
             </div>
           </div>
 
@@ -1726,7 +1726,7 @@
           <a href=""><i class="bi bi-twitter-x"></i></a>
           <a href=""><i class="bi bi-facebook"></i></a>
           <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.linkedin.com/company/zwigso/"><i class="bi bi-linkedin"></i></a>
         </div>
 
       </div>
@@ -1791,26 +1791,54 @@
   </script> -->
 
   <script>
-    fetch('contact.php', {
-    method: 'POST',
-    body: formData
-    })
-    .then(async response => {
-      const data = await response.json();
-      if (data.success) {
-        sentMsg.style.display = 'block';
-        form.reset();
-      } else {
-        errorMsg.innerText = data.error || 'Submission failed';
-        errorMsg.style.display = 'block';
-      }
-    })
-    .catch(error => {
-      errorMsg.innerText = 'Network error. Please try again.';
-      errorMsg.style.display = 'block';
-    });
+      const form = document.querySelector('.php-email-form');
+    
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+    
+        const formData = new FormData(form);
+    
+        const loading = document.querySelector('.loading');
+        const errorMsg = document.querySelector('.error-message');
+        const sentMsg = document.querySelector('.sent-message');
+    
+        // Hide all messages initially
+        loading.style.display = 'block';
+        errorMsg.style.display = 'none';
+        sentMsg.style.display = 'none';
+    
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+        })
+        .then(async (response) => {
+          const data = await response.json();
+          loading.style.display = 'none';
+    
+          // Clear both message boxes before updating
+          errorMsg.style.display = 'none';
+          sentMsg.style.display = 'none';
+    
+          if (data.success) {
+            sentMsg.style.display = 'block';
+            form.reset();
+          } else {
+            errorMsg.innerText = data.error || 'Form submission failed.';
+            errorMsg.style.display = 'block';
+          }
+        })
+        .catch((error) => {
+          loading.style.display = 'none';
+          sentMsg.style.display = 'none';
+    
+          console.error('Catch error:', error);
+          errorMsg.innerText = 'Submission failed. Please try again later.';
+          errorMsg.style.display = 'block';
+        });
+      });
+    </script>
 
-  </script>
+
 
 </body>
 
